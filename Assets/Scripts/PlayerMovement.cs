@@ -5,33 +5,79 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float movementSpeed = 6f;
+    [SerializeField] float movementSpeed = 5f;
     [SerializeField] float jumpForce = 5f;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
 
+    [SerializeField] Transform cam;
+    [SerializeField] float lookSensitivity;
+    [SerializeField] float maxXRot;
+    [SerializeField] float minXRot;
+    private float curXRot;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3 (horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
+        if (Cursor.lockState == CursorLockMode.Locked)
+            Look();
 
-        if(Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+
+
+    void Move()
+    {
+        Vector3 cameraDir = Camera.main.transform.forward;
+      
+        cameraDir.y = 0;
+        cameraDir.Normalize();
+
+       
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        
+        Vector3 move = new Vector3(horizontal, 0.0f, vertical).normalized;
+
+        Vector3 target = transform.position + cameraDir * move.z * movementSpeed * Time.deltaTime +
+                             Camera.main.transform.right * move.x * movementSpeed * Time.deltaTime;
+
+        rb.MovePosition(target);
+    }
+
     void Jump()
     {
-        rb.velocity = new Vector3 (rb.velocity.x, jumpForce, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+    }
+
+    void Look()
+    {
+        float x = Input.GetAxis("Mouse X") * lookSensitivity;
+        float y = Input.GetAxis("Mouse Y") * lookSensitivity;
+
+        transform.eulerAngles += Vector3.up * x;
+
+        curXRot += y;
+        curXRot = Mathf.Clamp(curXRot, minXRot, maxXRot);
+
+        cam.localEulerAngles = new Vector3(-curXRot, 0.0f, 0.0f);
     }
 
     private void OnCollisionEnter(Collision collision)
