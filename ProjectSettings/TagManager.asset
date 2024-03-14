@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy Body
   - Enemy Head
+  - Question1
   layers:
   - Default
   - TransparentFX

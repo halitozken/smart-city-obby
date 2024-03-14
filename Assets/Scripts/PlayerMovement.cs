@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     private float curXRot;
 
     [SerializeField] Animator animator;
+
+    [SerializeField] GameObject question1;
+    private bool canMove = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (canMove)
+            Move();
     }
 
 
@@ -98,6 +104,17 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.transform.parent.gameObject);
             Jump();
         }
+
+        if (collision.gameObject.CompareTag("Question1"))
+        {
+            question1.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            canMove = false;
+            GetComponent<Animator>().enabled = false;
+        }
+
+
+
     }
 
     bool IsGrounded()
