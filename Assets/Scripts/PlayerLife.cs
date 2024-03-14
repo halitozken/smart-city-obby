@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
-    
-
+    [SerializeField] GameObject CheckPoint;
     [SerializeField] GameObject CheckPointOne;
     [SerializeField] GameObject CheckPointTwo;
-
-
+    [SerializeField] GameObject CheckPointThree;
 
     private void Update()
     {
@@ -25,9 +23,14 @@ public class PlayerLife : MonoBehaviour
     {
         string checkPoint = PlayerPrefs.GetString("CheckPoint");
         
-            if(checkPoint == "")
+            if(checkPoint != null) 
             {
-                Invoke(nameof(ReloadLevel), 1.3f);
+            transform.position = CheckPoint.transform.position;
+            }
+
+            if(checkPoint == "zero")
+            {
+                transform.position = CheckPoint.transform.position;
             }
 
             if (checkPoint == "one")
@@ -38,7 +41,12 @@ public class PlayerLife : MonoBehaviour
             if (checkPoint == "two")
             {
                 transform.position = CheckPointTwo.transform.position;
-            }   
+            }
+
+            if (checkPoint == "three")
+            {
+            transform.position = CheckPointThree.transform.position;
+            }
     }
     
     void ReloadLevel()

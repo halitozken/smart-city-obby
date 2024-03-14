@@ -7,6 +7,8 @@ TagManager:
   - Enemy Body
   - Enemy Head
   - Question1
+  - "Qu\u0131estion"
+  - Question2
   layers:
   - Default
   - TransparentFX
