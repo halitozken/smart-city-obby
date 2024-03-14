@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float minXRot;
     private float curXRot;
 
+    [SerializeField] Animator animator;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -60,11 +61,21 @@ public class PlayerMovement : MonoBehaviour
                              Camera.main.transform.right * move.x * movementSpeed * Time.deltaTime;
 
         rb.MovePosition(target);
+
+        if(move != Vector3.zero)
+        {
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", true);
+        }else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        animator.SetBool("isJumping", true);
     }
 
     void Look()
