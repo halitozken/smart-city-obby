@@ -5,35 +5,53 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
-    bool dead = false;
+    
+
+    [SerializeField] GameObject CheckPointOne;
+    [SerializeField] GameObject CheckPointTwo;
+
+
 
     private void Update()
     {
-        if(transform.position.y < -1f && !dead)
+        if(transform.position.y < -1f)
         {
             Die();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Enemy Body"))
-        {
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<Rigidbody>().isKinematic = true;
-            GetComponent<PlayerMovement>().enabled = false;
-            Die();
-        }
-    }
 
     void Die()
     {
-        Invoke(nameof(ReloadLevel), 1.3f);
-        dead = true;
-    }
+        string checkPoint = PlayerPrefs.GetString("CheckPoint");
+        
+            if(checkPoint == "")
+            {
+                Invoke(nameof(ReloadLevel), 1.3f);
+            }
 
+            if (checkPoint == "one")
+            {
+                transform.position = CheckPointOne.transform.position;
+            }
+        
+            if (checkPoint == "two")
+            {
+                transform.position = CheckPointTwo.transform.position;
+            }   
+    }
+    
     void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy Body"))
+        {
+            Die();
+        }
     }
 }

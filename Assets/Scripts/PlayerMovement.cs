@@ -20,11 +20,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
-    [SerializeField] GameObject question1;
-    private bool canMove = true;
 
     private void Start()
     {
+        PlayerPrefs.DeleteAll();
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -43,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove)
-            Move();
+        Move();
     }
 
 
@@ -104,16 +102,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.transform.parent.gameObject);
             Jump();
         }
-
-        if (collision.gameObject.CompareTag("Question1"))
-        {
-            question1.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            canMove = false;
-            GetComponent<Animator>().enabled = false;
-        }
-
-
 
     }
 
