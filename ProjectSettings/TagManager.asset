@@ -9,6 +9,8 @@ TagManager:
   - Question1
   - "Qu\u0131estion"
   - Question2
+  - Question3
+  - Climb
   layers:
   - Default
   - TransparentFX

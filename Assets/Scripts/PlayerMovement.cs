@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float movementSpeed = 7f;
+    [SerializeField] float climbSpeed = 7f;
     [SerializeField] float jumpForce = 5f;
 
     [SerializeField] Transform groundCheck;
@@ -20,12 +22,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+    private bool isClimbing;
+    private bool isMove;
 
     private void Start()
     {
         PlayerPrefs.DeleteAll();
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        isMove = true;
+        isClimbing = false;
     }
 
     private void Update()
@@ -34,46 +40,73 @@ public class PlayerMovement : MonoBehaviour
         if (Cursor.lockState == CursorLockMode.Locked)
             Look();
 
+        
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
+      
+
+        
+       
     }
 
     private void FixedUpdate()
     {
-        Move();
+        if (isMove)
+        {
+            Move();
+        }
+
+        if (isClimbing)
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                Climb();
+            }
+
+        }
+           
     }
 
 
 
     void Move()
     {
+        
         Vector3 cameraDir = Camera.main.transform.forward;
-      
+
         cameraDir.y = 0;
         cameraDir.Normalize();
 
-       
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         
+
         Vector3 move = new Vector3(horizontal, 0.0f, vertical).normalized;
-
-        Vector3 target = transform.position + cameraDir * move.z * movementSpeed * Time.deltaTime +
-                             Camera.main.transform.right * move.x * movementSpeed * Time.deltaTime;
-
+        Vector3 target = transform.position + cameraDir * move.z * movementSpeed * Time.deltaTime + Camera.main.transform.right * move.x * movementSpeed * Time.deltaTime;
         rb.MovePosition(target);
+       
 
-        if(move != Vector3.zero)
+        if (move != Vector3.zero)
         {
             animator.SetBool("isJumping", false);
             animator.SetBool("isRunning", true);
-        }else
+        }
+        else
         {
             animator.SetBool("isRunning", false);
         }
+       
+    }
+
+    void Climb()
+    {
+        
+        isMove = false;
+        rb.useGravity = false;
+        transform.position += Vector3.up * climbSpeed * Time.deltaTime;
     }
 
     void Jump()
@@ -97,16 +130,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy Head"))
+        if (collision.gameObject.CompareTag("Enemy Head"))
         {
             Destroy(collision.transform.parent.gameObject);
             Jump();
         }
 
+        if (collision.gameObject.CompareTag("Climb"))
+        {
+            isClimbing = true;
+            isMove = false;
+            Debug.Log("Duvar");
+        }
+
+
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Climb"))
+        {
+            isClimbing = false;
+            isMove = true;
+            rb.useGravity = true;
+       
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Climb"))
+        {
+            isClimbing = false;
+            isMove = true;
+            rb.useGravity = true;
+        }
     }
 
     bool IsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, .1f, ground);
+        
     }
+
+
 }

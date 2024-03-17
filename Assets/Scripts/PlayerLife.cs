@@ -12,7 +12,7 @@ public class PlayerLife : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y < -1f)
+        if(transform.position.y < -10f)
         {
             Die();
         }
@@ -49,9 +49,9 @@ public class PlayerLife : MonoBehaviour
             }
     }
     
-    void ReloadLevel()
+    public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 
@@ -61,5 +61,7 @@ public class PlayerLife : MonoBehaviour
         {
             Die();
         }
+
+        
     }
 }

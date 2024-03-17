@@ -11,6 +11,8 @@ public class Question : MonoBehaviour
     [SerializeField] GameObject questionTwo;
     [SerializeField] GameObject questionThree;
 
+    [SerializeField] GameObject finishScreen;
+
     [SerializeField] GameObject trueAnswer;
     [SerializeField] GameObject wrongAnswer;
     [SerializeField] TextMeshProUGUI wrongAnswerText;
@@ -96,8 +98,39 @@ public class Question : MonoBehaviour
         questionOne.SetActive(false);
         questionTwo.SetActive(false);
         questionThree.SetActive(false);
+
         trueAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
+    }
+
+   
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Question1"))
+        {
+            questionOne.SetActive(true);
+            DeActivateScripts();
+        }
+
+        if (collision.gameObject.CompareTag("Question2"))
+        {
+            questionTwo.SetActive(true);
+            DeActivateScripts();
+        }
+        
+        if (collision.gameObject.CompareTag("Question3"))
+        {
+            questionThree.SetActive(true);
+            DeActivateScripts();
+        }
+
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            finishScreen.SetActive(true);
+            DeActivateScripts();
+        }
     }
 
     public void ActivateScripts()
@@ -107,31 +140,10 @@ public class Question : MonoBehaviour
         GetComponent<Animator>().enabled = true;
     }
 
- 
-    private void OnCollisionEnter(Collision collision)
+    public void DeActivateScripts()
     {
-        if (collision.gameObject.CompareTag("Question1"))
-        {
-            questionOne.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            playerMovement.GetComponent<PlayerMovement>().enabled = false;
-            GetComponent<Animator>().enabled = false;
-        }
-
-        if (collision.gameObject.CompareTag("Question2"))
-        {
-            questionTwo.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            playerMovement.GetComponent<PlayerMovement>().enabled = false;
-            GetComponent<Animator>().enabled = false;
-        }
-        
-        if (collision.gameObject.CompareTag("Question3"))
-        {
-            questionThree.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            playerMovement.GetComponent<PlayerMovement>().enabled = false;
-            GetComponent<Animator>().enabled = false;
-        }
+        Cursor.lockState = CursorLockMode.None;
+        playerMovement.GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<Animator>().enabled = false;
     }
 }
