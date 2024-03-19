@@ -29,14 +29,15 @@ public class Question : MonoBehaviour
 
         string checkPoint = "one";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
-        Invoke(nameof(closeAnswers), 1.3f);  
+        questionOne.SetActive(false);
+        Invoke(nameof(closeAnswers), 1.5f);  
     }
 
     public void QuestionOneWrong()
     {
         wrongAnswer.SetActive(true);
-        wrongAnswerText.text = "Ýnsanlarýn yaþam kalitesini artýrmak";
-        Invoke(nameof(closeAnswers), 1.3f);
+        //wrongAnswerText.text = "Ýnsanlarýn yaþam kalitesini artýrmak";
+        Invoke(nameof(closeAnswers), 1.5f);
         
         string checkPointZero = "zero";
         PlayerPrefs.SetString("CheckPoint", checkPointZero);
@@ -53,14 +54,14 @@ public class Question : MonoBehaviour
 
         string checkPoint = "two";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
-        Invoke(nameof(closeAnswers), 1.3f);
+        Invoke(nameof(closeAnswers), 1.5f);
     }
 
     public void QuestionTwoWrong()
     {
         wrongAnswer.SetActive(true);
-        wrongAnswerText.text = "Otopark yerlerini gösteren akýllý panolar";
-        Invoke(nameof(closeAnswers), 1.3f);
+        //wrongAnswerText.text = "Otopark yerlerini gösteren akýllý panolar";
+        Invoke(nameof(closeAnswers), 1.5f);
 
         string checkPoint = "one";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
@@ -77,14 +78,14 @@ public class Question : MonoBehaviour
 
         string checkPoint = "three";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
-        Invoke(nameof(closeAnswers), 1.3f);
+        Invoke(nameof(closeAnswers), 1.5f);
     }
 
     public void QuestionThreeWrong()
     {
         wrongAnswer.SetActive(true);
-        wrongAnswerText.text = "Sürdürülebilirlik ve yaþam kalitesini artýrma";
-        Invoke(nameof(closeAnswers), 1.3f);
+        //wrongAnswerText.text = "Sürdürülebilirlik ve yaþam kalitesini artýrma";
+        Invoke(nameof(closeAnswers), 1.5f);
 
         string checkPoint = "two";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
@@ -95,7 +96,7 @@ public class Question : MonoBehaviour
 
     public void closeAnswers()
     {
-        questionOne.SetActive(false);
+        
         questionTwo.SetActive(false);
         questionThree.SetActive(false);
 

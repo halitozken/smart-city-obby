@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
+        }else
+        {
+            animator.SetBool("isJumping", false);
         }
-      
 
-        
-       
     }
 
     private void FixedUpdate()
@@ -91,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            animator.SetBool("isJumping", false);
             animator.SetBool("isRunning", true);
         }
         else
@@ -116,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Look()
+        
     {
         float x = Input.GetAxis("Mouse X") * lookSensitivity;
         float y = Input.GetAxis("Mouse Y") * lookSensitivity;
