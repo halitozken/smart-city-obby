@@ -41,9 +41,10 @@ public class PlayerMovement : MonoBehaviour
             Look();
 
         
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
-            Jump();
+            Jump(); 
+            
         }else
         {
             animator.SetBool("isJumping", false);
@@ -91,12 +92,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (move != Vector3.zero)
         {
+
             animator.SetBool("isRunning", true);
         }
         else
         {
             animator.SetBool("isRunning", false);
         }
+       
        
     }
 

@@ -41,7 +41,7 @@ public class Question : MonoBehaviour
         
         string checkPointZero = "zero";
         PlayerPrefs.SetString("CheckPoint", checkPointZero);
-       
+        questionOne.SetActive(false);
         ActivateScripts();
         transform.position = checkPoint.transform.position;
     }
@@ -54,6 +54,7 @@ public class Question : MonoBehaviour
 
         string checkPoint = "two";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
+        questionTwo.SetActive(false);
         Invoke(nameof(closeAnswers), 1.5f);
     }
 
@@ -65,7 +66,7 @@ public class Question : MonoBehaviour
 
         string checkPoint = "one";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
-
+        questionTwo.SetActive(false);
         ActivateScripts();
         transform.position = checkPointOne.transform.position;
     }
@@ -78,6 +79,8 @@ public class Question : MonoBehaviour
 
         string checkPoint = "three";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
+
+        questionThree.SetActive(false);
         Invoke(nameof(closeAnswers), 1.5f);
     }
 
@@ -89,17 +92,13 @@ public class Question : MonoBehaviour
 
         string checkPoint = "two";
         PlayerPrefs.SetString("CheckPoint", checkPoint);
-
+        questionThree.SetActive(false);
         ActivateScripts();
         transform.position = checkPointTwo.transform.position;
     }
 
     public void closeAnswers()
     {
-        
-        questionTwo.SetActive(false);
-        questionThree.SetActive(false);
-
         trueAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
     }
