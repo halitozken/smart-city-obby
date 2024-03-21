@@ -10,6 +10,9 @@ public class Question : MonoBehaviour
     [SerializeField] GameObject questionOne;
     [SerializeField] GameObject questionTwo;
     [SerializeField] GameObject questionThree;
+    [SerializeField] GameObject questionFour;
+    [SerializeField] GameObject questionFive;
+
 
     [SerializeField] GameObject finishScreen;
 
@@ -21,6 +24,9 @@ public class Question : MonoBehaviour
     [SerializeField] GameObject checkPointOne;
     [SerializeField] GameObject checkPointTwo;
     [SerializeField] GameObject checkPointThree;
+    [SerializeField] GameObject checkPointFour;
+    [SerializeField] GameObject checkPointFive;
+
     public void QuestionOneTrue()
     {
         trueAnswer.SetActive(true);
@@ -46,6 +52,7 @@ public class Question : MonoBehaviour
         transform.position = checkPoint.transform.position;
     }
 
+
     public void QuestionTwoTrue()
     {
         trueAnswer.SetActive(true);
@@ -70,6 +77,7 @@ public class Question : MonoBehaviour
         ActivateScripts();
         transform.position = checkPointOne.transform.position;
     }
+
 
     public void QuestionThreeTrue()
     {
@@ -97,6 +105,63 @@ public class Question : MonoBehaviour
         transform.position = checkPointTwo.transform.position;
     }
 
+    public void QuestionFourTrue()
+    {
+        trueAnswer.SetActive(true);
+        ActivateScripts();
+        transform.position = checkPointFour.transform.position;
+
+        string checkPoint = "four";
+        PlayerPrefs.SetString("CheckPoint", checkPoint);
+
+        questionFour.SetActive(false);
+        Invoke(nameof(closeAnswers), 1.5f);
+    }
+
+    public void QuestionFourWrong()
+    {
+        wrongAnswer.SetActive(true);
+        //wrongAnswerText.text = "Sürdürülebilirlik ve yaþam kalitesini artýrma";
+        Invoke(nameof(closeAnswers), 1.5f);
+
+        string checkPoint = "three";
+        PlayerPrefs.SetString("CheckPoint", checkPoint);
+        questionFour.SetActive(false);
+        ActivateScripts();
+        transform.position = checkPointThree.transform.position;
+    }
+
+    public void QuestionFiveTrue()
+    {
+        trueAnswer.SetActive(true);
+        ActivateScripts();
+        transform.position = checkPointFive.transform.position;
+
+        string checkPoint = "five";
+        PlayerPrefs.SetString("CheckPoint", checkPoint);
+
+        questionFive.SetActive(false);
+        Invoke(nameof(closeAnswers), 1.5f);
+    }
+
+    public void QuestionFiveWrong()
+    {
+        wrongAnswer.SetActive(true);
+        //wrongAnswerText.text = "Sürdürülebilirlik ve yaþam kalitesini artýrma";
+        Invoke(nameof(closeAnswers), 1.5f);
+
+        string checkPoint = "four";
+        PlayerPrefs.SetString("CheckPoint", checkPoint);
+        questionFive.SetActive(false);
+        ActivateScripts();
+        transform.position = checkPointFour.transform.position;
+    }
+
+
+
+
+
+
     public void closeAnswers()
     {
         trueAnswer.SetActive(false);
@@ -123,6 +188,18 @@ public class Question : MonoBehaviour
         if (collision.gameObject.CompareTag("Question3"))
         {
             questionThree.SetActive(true);
+            DeActivateScripts();
+        }
+
+        if (collision.gameObject.CompareTag("Question4"))
+        {
+            questionFour.SetActive(true);
+            DeActivateScripts();
+        }
+
+        if (collision.gameObject.CompareTag("Question5"))
+        {
+            questionFive.SetActive(true);
             DeActivateScripts();
         }
 

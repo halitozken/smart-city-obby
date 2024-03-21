@@ -11,6 +11,9 @@ TagManager:
   - Question2
   - Question3
   - Climb
+  - Question4
+  - Question5
+  - GameOver
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,8 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] GameObject CheckPointOne;
     [SerializeField] GameObject CheckPointTwo;
     [SerializeField] GameObject CheckPointThree;
+    [SerializeField] GameObject CheckPointFour;
+    [SerializeField] GameObject CheckPointFive;
 
     private void Update()
     {
@@ -47,6 +49,16 @@ public class PlayerLife : MonoBehaviour
             {
             transform.position = CheckPointThree.transform.position;
             }
+
+        if (checkPoint == "four")
+        {
+            transform.position = CheckPointFour.transform.position;
+        }
+
+        if (checkPoint == "five")
+        {
+            transform.position = CheckPointFive.transform.position;
+        }
     }
     
     public void NextLevel()
@@ -62,6 +74,11 @@ public class PlayerLife : MonoBehaviour
             Die();
         }
 
-        
+        if (collision.gameObject.CompareTag("GameOver"))
+        {
+            NextLevel();
+        }
+
+
     }
 }
