@@ -121,7 +121,7 @@ public class FPSWalkerEnhanced : MonoBehaviour
                 jumpTimer++;
             else if (jumpTimer >= antiBunnyHopFactor)
             {
-                moveDirection.y = jumpSpeed;
+                moveDirection.y = (Input.GetButton("JumpMultiplier")) ? jumpSpeed * 10 : jumpSpeed;
                 jumpTimer = 0;
             }
         }
