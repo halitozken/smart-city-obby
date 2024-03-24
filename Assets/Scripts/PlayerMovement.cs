@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float curXRot;
 
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource jumpSound;
 
     private bool isClimbing;
     private bool isMove;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isMove = true;
         isClimbing = false;
+        jumpSound.Pause();
     }
 
     private void Update()
@@ -104,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Climb()
     {
-        
         isMove = false;
         rb.useGravity = false;
         transform.position += Vector3.up * climbSpeed * Time.deltaTime;
@@ -114,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         animator.SetBool("isJumping", true);
+        jumpSound.Play();
     }
 
     void Look()

@@ -12,6 +12,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] GameObject CheckPointFour;
     [SerializeField] GameObject CheckPointFive;
 
+   
     private void Update()
     {
         if(transform.position.y < -10f)

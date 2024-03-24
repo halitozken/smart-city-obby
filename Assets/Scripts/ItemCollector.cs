@@ -5,11 +5,13 @@ using TMPro;
 
 public class ItemCollector : MonoBehaviour
 {
+    [SerializeField] AudioSource collectSound;
+
     int coins = 0;
 
     [SerializeField] TMP_Text coinsText;
 
-
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Coin"))
@@ -17,6 +19,7 @@ public class ItemCollector : MonoBehaviour
             Destroy(other.gameObject);
             coins++;
             coinsText.text = coins + "";
+            collectSound.Play();
         }
     }
 }
