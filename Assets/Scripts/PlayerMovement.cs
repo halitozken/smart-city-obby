@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-
             animator.SetBool("isRunning", true);
         }
         else
