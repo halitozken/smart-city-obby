@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Question : MonoBehaviour
 {
+
     [SerializeField] GameObject playerMovement;
 
     [SerializeField] GameObject questionOne;
@@ -26,6 +28,7 @@ public class Question : MonoBehaviour
     [SerializeField] GameObject checkPointThree;
     [SerializeField] GameObject checkPointFour;
     [SerializeField] GameObject checkPointFive;
+
 
     public void QuestionOneTrue()
     {
@@ -157,22 +160,17 @@ public class Question : MonoBehaviour
         transform.position = checkPointFour.transform.position;
     }
 
-
-
-
-
-
     public void closeAnswers()
     {
         trueAnswer.SetActive(false);
         wrongAnswer.SetActive(false);
     }
 
-   
-
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+
         if (collision.gameObject.CompareTag("Question1"))
         {
             questionOne.SetActive(true);
@@ -205,7 +203,8 @@ public class Question : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Finish"))
         {
-            finishScreen.SetActive(true);
+
+           finishScreen.SetActive(true);
             DeActivateScripts();
         }
     }
@@ -219,6 +218,7 @@ public class Question : MonoBehaviour
 
     public void DeActivateScripts()
     {
+        
         Cursor.lockState = CursorLockMode.None;
         playerMovement.GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Animator>().enabled = false;

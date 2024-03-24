@@ -8,26 +8,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject escPanel;
     private bool esc = false;
 
-    
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             esc = !esc;
+
+            if (esc)
+            {
+                escPanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                escPanel.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
 
-        if(esc )
-        {
-            escPanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            escPanel.SetActive(false);
-          
-        }
+        
     }
+
+    
 
     public void Resume()
     {

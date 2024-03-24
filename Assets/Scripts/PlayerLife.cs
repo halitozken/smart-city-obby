@@ -13,6 +13,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] GameObject CheckPointFive;
 
    
+
     private void Update()
     {
         if(transform.position.y < -10f)
@@ -77,6 +78,7 @@ public class PlayerLife : MonoBehaviour
 
         if (collision.gameObject.CompareTag("GameOver"))
         {
+            
             NextLevel();
         }
 

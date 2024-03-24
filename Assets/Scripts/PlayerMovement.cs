@@ -31,9 +31,10 @@ public class PlayerMovement : MonoBehaviour
         PlayerPrefs.DeleteAll();
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         isMove = true;
         isClimbing = false;
-        jumpSound.Pause();
+ 
     }
 
     private void Update()
@@ -144,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isClimbing = true;
             isMove = false;
-            Debug.Log("Duvar");
+         
         }
 
 
